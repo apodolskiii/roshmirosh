@@ -52,6 +52,7 @@ body {
 }
 
 img { max-width: 100%; display: block; }
+section[id], #check-result { scroll-margin-top: 80px; }
 [hidden] { display: none !important; }
 
 h1, h2, h3 {
@@ -602,3 +603,146 @@ a { color: inherit; }
 }
 .doc-close:hover { background: var(--ink); color: var(--cream); }
 .doc-close:active { transform: scale(0.97); }
+
+/* ---------- selection bar (mobile) ---------- */
+
+.pick-bar { display: none; }
+
+/* ==========================================================
+   Mobile. Kept last so it overrides same-specificity rules.
+   ========================================================== */
+
+@media (max-width: 760px) {
+  :root {
+    --fs-base: 1rem;
+    --fs-md: 1.075rem;
+    --fs-xl: 2.1rem;
+    --fs-hero: 2.45rem;
+  }
+
+  /* one-line header, so it stops eating the screen */
+  .topbar { padding-top: 8px; padding-bottom: 8px; gap: 12px; }
+  .brand { min-width: 0; }
+  .brand-name { font-size: 1.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand-role { font-size: .8rem; }
+  .btn-small { min-height: 40px; padding: 0 1em; }
+
+  /* hero: landscape photo strip, CTA reachable on the first screen */
+  .hero { padding-top: 12px; padding-bottom: 56px; gap: 20px; }
+  .hero-photo {
+    order: -1;
+    max-width: none;
+    justify-self: stretch;
+    padding: 6px;
+    transform: none;
+    box-shadow: 0 1px 2px rgba(46, 41, 37, .08), 0 12px 28px -18px rgba(46, 41, 37, .4);
+  }
+  .hero-photo img { aspect-ratio: 4 / 3; object-position: 50% 28%; }
+  .hero h1 { margin-bottom: .35em; }
+  .hero-lead { line-height: 1.5; margin-bottom: 1.4em; }
+  .hero-actions { flex-direction: column; gap: 10px; }
+  .hero-actions .btn { width: 100%; }
+
+  /* sections breathe less */
+  .check, .about { padding-top: 56px; padding-bottom: 56px; }
+  .deep-inner { padding-top: 56px; padding-bottom: 56px; }
+  .process { padding-top: 0; }
+  .notes { padding-top: 56px; }
+  .booking, .faq { padding-bottom: 56px; }
+  .check-head, .notes-head { margin-bottom: 1.6rem; }
+  h2 { line-height: 1.1; }
+
+  /* self-check: tighter chips */
+  .check-groups { gap: 1.5rem; }
+  .topic { gap: 8px; }
+  .topic legend { font-size: 1.3rem; margin-bottom: .4rem; }
+  .chip span { padding: .6em .95em; font-size: .95rem; }
+  .check-result { margin-top: 2rem; }
+  .check-preview { font-size: 1.2rem; }
+  .check-actions { flex-direction: column; align-items: stretch; }
+  .check-actions .btn { width: 100%; }
+
+  /* approach: plain list instead of three heavy cards */
+  .approach-lead { margin-bottom: 1.6rem; }
+  .methods { margin-bottom: 1.6rem; }
+  .method, .method + .method { padding: 1.1rem 0; }
+  .method dt { font-size: 1.3rem; margin-bottom: .35rem; }
+  .promises { flex-direction: column; gap: 0; }
+  .promises li {
+    flex: none;
+    padding: .9rem 0 .9rem 1rem;
+    border-radius: 0;
+    background: none;
+    border-left: 2px solid var(--beige);
+  }
+  .promises li + li { margin-top: .6rem; }
+
+  /* steps: number sits beside the text */
+  .process h2 { margin-bottom: 1.4rem; }
+  .steps { gap: 1.4rem; }
+  .steps li { display: grid; grid-template-columns: 2.4rem 1fr; column-gap: .8rem; }
+  .steps li::before { grid-row: span 2; font-size: 2.6rem; margin: 0; }
+  .steps h3 { font-size: 1.35rem; margin-bottom: .2rem; }
+
+  /* notes: swipeable, like an Instagram carousel */
+  .note-list {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 4px;
+    scroll-padding: 0 var(--gutter);
+    scrollbar-width: none;
+  }
+  .note-list::-webkit-scrollbar { display: none; }
+  .note-list li { flex: 0 0 82%; scroll-snap-align: start; }
+  .note { aspect-ratio: 4 / 5; min-height: 0; height: 100%; padding: 24px; }
+  .note-quote { font-size: 1.65rem; }
+  .note:hover, .note:focus-visible { transform: none; }
+  .notes-more { margin-top: .6rem; }
+
+  /* documents */
+  .docs { padding: 20px; }
+  .docs-title { font-size: 1.5rem; }
+  .doc { padding: .9rem 0; }
+  .doc-name { font-size: .98rem; }
+  .doc-org { font-size: .9rem; }
+
+  /* booking */
+  .price { margin-bottom: .8em; }
+  .widget-placeholder { min-height: 360px; }
+
+  /* faq */
+  .faq summary { padding: 1rem 0; font-size: 1rem; }
+
+  /* footer */
+  .footer { padding-top: 36px; padding-bottom: calc(36px + env(safe-area-inset-bottom)); }
+  .footer-contacts { gap: 0 1.2rem; }
+
+  /* selection bar: follows you while picking statements */
+  .pick-bar {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 10px 10px 18px;
+    border-radius: 12px;
+    background: var(--graphite);
+    color: var(--cream);
+    box-shadow: 0 10px 30px -10px rgba(46, 41, 37, .55);
+    transform: translateY(calc(100% + 24px));
+    opacity: 0;
+    pointer-events: none;
+    transition-property: transform, opacity;
+    transition-duration: 220ms;
+    transition-timing-function: cubic-bezier(.2, .7, .2, 1);
+  }
+  .pick-bar.is-visible { transform: none; opacity: 1; pointer-events: auto; }
+  .pick-bar-count { flex: 1; font-size: .95rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .pick-bar .btn { min-height: 44px; padding: 0 1.1em; font-size: .95rem; background: var(--cream); border-color: var(--cream); color: var(--ink); }
+}

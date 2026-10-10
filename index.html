@@ -80,7 +80,7 @@
       </fieldset>
     </div>
 
-    <div class="check-result" aria-live="polite">
+    <div class="check-result" id="check-result" aria-live="polite">
       <p class="check-empty">Пока ничего не отмечено. Можно выбрать один пункт или все сразу.</p>
       <div class="check-filled" hidden>
         <p class="check-preview-label">Ваше сообщение</p>
@@ -261,6 +261,11 @@
     <li><a href="https://www.b17.ru/id845234/" target="_blank" rel="noopener">b17.ru</a></li>
   </ul>
 </footer>
+
+<div class="pick-bar" aria-hidden="true">
+  <span class="pick-bar-count"></span>
+  <a class="btn" href="#check-result">К сообщению</a>
+</div>
 
 <dialog class="doc-viewer" aria-label="Документ об образовании">
   <form method="dialog"><button class="doc-close" aria-label="Закрыть">Закрыть</button></form>

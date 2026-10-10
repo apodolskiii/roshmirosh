@@ -83,3 +83,24 @@ document.querySelectorAll("[data-doc]").forEach((btn) => {
 viewer.addEventListener("click", (e) => {
   if (e.target === viewer) viewer.close();
 });
+
+// Mobile: a small bar follows the visitor while they pick statements,
+// so the ready message is one tap away instead of far below
+const pickBar = document.querySelector(".pick-bar");
+const pickCount = pickBar.querySelector(".pick-bar-count");
+const checkSection = document.querySelector(".check");
+let checkInView = false;
+let resultInView = false;
+
+function updatePickBar() {
+  const n = boxes.filter((b) => b.checked).length;
+  pickCount.textContent = `Отмечено: ${n}`;
+  const show = n > 0 && checkInView && !resultInView;
+  pickBar.classList.toggle("is-visible", show);
+  pickBar.setAttribute("aria-hidden", String(!show));
+  pickBar.querySelector("a").tabIndex = show ? 0 : -1;
+}
+
+new IntersectionObserver(([e]) => { checkInView = e.isIntersecting; updatePickBar(); }).observe(checkSection);
+new IntersectionObserver(([e]) => { resultInView = e.isIntersecting; updatePickBar(); }, { threshold: 0.4 }).observe(result);
+boxes.forEach((b) => b.addEventListener("change", updatePickBar));
